@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>From server to browser logger</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/logs.css">
+</head>
+
+<body>
+    <div class="content">
+        <h3>
+            Logs
+            <span id="socket-indicator"></span>
+            <small id="update-info"></small>
+        </h3>
+        <div id="logs"></div>
+    </div>
+
+
+    <script type="text/javascript" src="js/jquery-2.2.1.min.js"></script>
+    <script type="text/javascript" src="js/underscore-min.js"></script>
+    <script type="text/javascript" src="js/logs.js"></script>
+
+    <!-- Templates ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+    <script type="text/template" class="log-template">
+        <div class="panel panel-primary log">
+            <div class="panel-heading"><%- title %></div>
+            <table class="table">
+            <tbody>
+                <tr class="log-id">
+                    <td class="client-prop-key">log id:</td>
+                    <td class="client-prop-value">
+                        <%- id %>
+                    </td>
+                </tr>
+                <tr class="client-uuid">
+                    <td class="client-prop-key">message:</td>
+                    <td class="client-prop-value">
+                        <%- message %>
+                    </td>
+                </tr>
+                <tr class="client-source-id">
+                    <td class="client-prop-key">date:</td>
+                    <td class="client-prop-value">
+                        <%- date %>
+                    </td>
+                </tr>
+                <tr class="client-message">
+                    <td class="client-prop-key">content:</td>
+                    <td class="client-prop-value">
+                        <pre><%= content %></pre>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+    </script>
+</body>
+
+

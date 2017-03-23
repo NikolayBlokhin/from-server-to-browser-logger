@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import sys
 import json
+import datetime
 
 from twisted.internet import reactor, ssl
 
@@ -67,11 +68,43 @@ class LogsServerFactory(WebSocketServerFactory):
 
 
 def runEverySeconds(wss_factory):
-    log_message = {
-        'message': 'Any message',
+    log_message_example_1 = {
+        'title': 'First log message',
+        'id': 2435626,
+        'message': 'First log message example',
+        'data': datetime.datetime.utcnow(),
+        'content': {
+            'source': 'server',
+            'key': '23SDFG-SDFH5E-3456',
+            'app': 'nginx',
+            'data': {
+                's_id': 857679,
+                'msg': 'try again',
+                'status': 'error',
+            },
+        },
     }
 
-    wss_factory.broadcast(json.dumps(log_message))
+    log_message_example_2 = {
+        'title': 'Second log message',
+        'id': 990204,
+        'message': 'Second log message example',
+        'data': datetime.datetime.utcnow(),
+        'content': {
+            'source': 'server',
+            'key': '55SDAS-SDFH5E-8811',
+            'app': 'nginx',
+            'data': {
+                's_id': 223125,
+                'msg': 'try again',
+                'status': 'error',
+            },
+        },
+    }
+
+    logs = [log_message_example_1, log_message_example_2]
+
+    wss_factory.broadcast(json.dumps(logs))
 
 
 def main():
