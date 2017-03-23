@@ -1,0 +1,34 @@
+.log-prop-key {
+    width: 170px;
+    background-color: #AFD3F3;
+    text-align: right;
+}
+
+.log-prop-value {
+    /*width: 600px;*/
+}
+
+#socket-indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-color: #F00;
+    border-radius: 10px;
+}
+
+
+/* for JSON syntax highlighting ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+.key {
+    color: #099C5B;
+}
+
+.string,
+.number,
+.boolean,
+.null {
+    color: #4159D8;
+    font-weight: 300;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
