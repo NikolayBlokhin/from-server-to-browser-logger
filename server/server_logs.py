@@ -4,7 +4,10 @@ import sys
 import json
 import datetime
 
-from twisted.internet import reactor, ssl
+from twisted.internet import (
+    reactor,
+    ssl,
+)
 
 from autobahn.twisted.websocket import (
     WebSocketServerProtocol,
@@ -12,7 +15,11 @@ from autobahn.twisted.websocket import (
     listenWS,
 )
 
-from settings import KEY_PATH_CRT, KEY_PATH_KEY, PORT_FOR_LOGS_SERVER
+from settings import (
+    KEY_PATH_CRT,
+    KEY_PATH_KEY,
+    PORT_FOR_LOGS_SERVER,
+)
 
 
 
@@ -66,8 +73,7 @@ class LogsServerFactory(WebSocketServerFactory):
             print('message sent to {}'.format(c.peer))
 
 
-
-def runEverySeconds(wss_factory):
+def runEveryXSeconds(logs_factory):
     log_message_example_1 = {
         'title': 'First log message',
         'id': 2435626,
@@ -84,7 +90,6 @@ def runEverySeconds(wss_factory):
             },
         },
     }
-
     log_message_example_2 = {
         'title': 'Second log message',
         'id': 990204,
@@ -101,10 +106,8 @@ def runEverySeconds(wss_factory):
             },
         },
     }
-
     logs = [log_message_example_1, log_message_example_2]
-
-    wss_factory.broadcast(json.dumps(logs))
+    logs_factory.broadcast(json.dumps(logs))
 
 
 def main():
@@ -114,17 +117,19 @@ def main():
         KEY_PATH_CRT
     )
 
-    wss_factory = LogsServerFactory(
-        'wss://127.0.0.1:{0}'.format(PORT_FOR_LOGS_SERVER)
+    logs_factory = LogsServerFactory(
+        'wss://127.0.0.1:{0}'.format(
+            PORT_FOR_LOGS_SERVER,
+        )
     )
-    wss_factory.protocol = LogsServerProtocol
-    listenWS(wss_factory, ssl_context)
+    logs_factory.protocol = LogsServerProtocol
+    listenWS(logs_factory, ssl_context)
 
-
-    l = task.LoopingCall(runEverySeconds, wss_factory)
-    l.start(3.0)  # call every 3 second
+    loop = task.LoopingCall(runEveryXSeconds, logs_factory)
+    loop.start(3.0)  # call every 3 second
 
     reactor.run()
+
 
 if __name__ == '__main__':
     main()
